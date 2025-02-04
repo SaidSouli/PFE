@@ -1,36 +1,47 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-
+import { FormsModule } from '@angular/forms';
+import {Router} from '@angular/router';
 @Component({
   selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl:"./login.component.html",
-  styleUrls:['./login.component.scss'],
+  imports: [FormsModule] 
 })
 export class LoginComponent {
   username: string = '';
   password: string = '';
+  message: string ='';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router : Router) {}
 
   onSubmit() {
-    const credentials = {
+    this.http.post<any>('http://localhost:8080/api/users/login', {
       username: this.username,
       password: this.password
-    };
-
-    this.http.post('http://localhost:8080/api/auth/login', credentials)
-      .subscribe({
-        next: (response: any) => {
-          localStorage.setItem('token', response.token);
-          console.log('Login successful');
-        },
-        error: (error) => {
-          console.error('Login failed', error);
+    }).subscribe({
+      next: (response) => {
+        console.log('Login successful', response);
+        if (response && response.role) {
+          const role = response.role.toLowerCase();
+          switch(role) {
+            case 'admin':
+              this.router.navigate(['/admin']);
+              break;
+            default:
+              console.log('Unknown role:', role);
+          }
+        } else {
+          console.error('No role found in response');
+          this.message = 'Login failed: Invalid response';
         }
-      });
+      },
+      error: (error) => {
+        this.message = 'login failed , please check your credential';
+        console.error('Login failed', error);
+        
+      }
+    });
   }
 }

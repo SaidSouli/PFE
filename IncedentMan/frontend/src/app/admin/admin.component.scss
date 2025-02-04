@@ -1,0 +1,17 @@
+.admin {
+    padding: 2rem;
+    text-align: center;
+  }
+  
+  .admin-features {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+  
+  button {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    cursor: pointer;
+  }
