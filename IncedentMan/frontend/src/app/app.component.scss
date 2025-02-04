@@ -1,0 +1,41 @@
+/* Center the container */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+    gap: 20px; /* Space between buttons */
+  }
+  
+  /* Common button styles */
+  .btn {
+    padding: 20px 40px; /* Big padding for larger buttons */
+    font-size: 18px; /* Larger font size */
+    font-weight: bold; /* Bold text */
+    border: none; /* Remove default border */
+    border-radius: 10px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: all 0.3s ease; /* Smooth hover effect */
+  }
+  
+  /* Primary button styles */
+  .btn-primary {
+    background-color: #007bff; /* Blue background */
+    color: white; /* White text */
+  
+    &:hover {
+      background-color: darken(#007bff, 10%); /* Darker blue on hover */
+      transform: scale(1.05); /* Slightly enlarge on hover */
+    }
+  }
+  
+  /* Secondary button styles */
+  .btn-secondary {
+    background-color: #6c757d; /* Gray background */
+    color: white; /* White text */
+  
+    &:hover {
+      background-color: darken(#6c757d, 10%); /* Darker gray on hover */
+      transform: scale(1.05); /* Slightly enlarge on hover */
+    }
+  }

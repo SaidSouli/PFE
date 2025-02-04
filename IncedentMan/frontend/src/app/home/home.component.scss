@@ -1,0 +1,81 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@200;300;400;500;600;700&display=swap");
+
+/* General container styling */
+.container {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full viewport height */
+  padding: 0 10px;
+  background: url("C:/Users/saids/Desktop/pfe/IncedentMan/frontend/public/hero-bg.jpg"), #000; /* Fix background image path */
+  background-position: center;
+  background-size: cover;
+  font-family: "Open Sans", sans-serif;
+  text-align: center;
+  position: relative;
+}
+
+/* Overlay for darker background */
+.container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6); /* Dark overlay */
+  z-index: 1;
+}
+
+/* Title styling */
+.title {
+  font-size: 2rem;
+  color: #fff;
+  z-index: 2;
+  margin-bottom: 30px; /* Space below the title */
+  font-weight: bold;
+}
+
+/* Base button styling */
+.btn {
+  padding: 15px 30px;
+  margin: 10px;
+  border: none;
+  border-radius: 50px; /* Rounded corners */
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease; /* Smooth transition for hover effects */
+  outline: none;
+  text-transform: uppercase; /* Uppercase text */
+  letter-spacing: 1px;
+  z-index: 2;
+}
+
+/* Primary button styling */
+.btn-primary {
+  background-color: #ff6f61; /* Coral color */
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Shadow effect */
+}
+
+.btn-primary:hover {
+  background-color: #ff4a3d; /* Darker coral on hover */
+  transform: translateY(-2px); /* Slight lift on hover */
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+}
+
+/* Secondary button styling */
+.btn-secondary {
+  background-color: transparent;
+  color: white;
+  border: 2px solid white; /* White border */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Shadow effect */
+}
+
+.btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Slight white background on hover */
+  transform: translateY(-2px); /* Slight lift on hover */
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+}
