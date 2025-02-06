@@ -8,15 +8,15 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class User {
     @Id
     private String id;
-    
+
     @Indexed(unique = true)
     private String username;
-    
+
     private String password;
-    
+
     @Indexed(unique = true)
     private String email;
-    
+
     private String role;
 
     public User() {}
