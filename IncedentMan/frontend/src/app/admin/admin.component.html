@@ -1,33 +1,39 @@
-<nav class="navbar navbar-expand-lg" style="background-color: #343a40;"> 
+<nav class="navbar navbar-expand-lg">
   <div class="container-fluid">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon" style="background-color: #ffffff;"></span>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02">
+      <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#" style="color: #ffffff;"> 
-            <i class="bi bi-house"></i> Home
+          <a class="nav-link active" aria-current="page" href="#">
+            <i class="bi bi-house-fill"></i> Home
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/add-user" style="color: #ffffff;">
-            <i class="bi bi-person-plus"></i> Add user
+          <a class="nav-link" routerLink="/add-user">
+            <i class="bi bi-person-plus-fill"></i> Add user
           </a>
         </li>
       </ul>
-      <button class="btn btn-danger" (click)="logout()">Logout</button>
+      <button class="btn btn-logout" (click)="logout()">
+        <i class="bi bi-box-arrow-right"></i> Logout
+      </button>
     </div>
   </div>
 </nav>
+
 <div class="search-container">
-  <input 
-  type = "text"
-  [value]="searchTerm()"
-  (input)="updateSearch($event)"
-  placeholder="Search by username or role"
-  class="search-input"
-  >
+  <div class="search-wrapper">
+    <i class="bi bi-search search-icon"></i>
+    <input
+      type="text"
+      [value]="searchTerm()"
+      (input)="updateSearch($event)"
+      placeholder="Search by username or role"
+      class="search-input"
+    >
+  </div>
 </div>
 
 <h2>List of users</h2>
@@ -46,8 +52,8 @@
       <td>{{ user.email }}</td>
       <td>{{ user.role }}</td>
       <td>
-        <button class="btn-edit" (click)="editUser (user)">Edit</button>
-        <button (click)="deleteUser (user.id)">Delete</button>
+        <button class="btn-edit" (click)="editUser(user)">Edit</button>
+        <button (click)="deleteUser(user.id)">Delete</button>
       </td>
     </tr>
   </tbody>

@@ -48,8 +48,9 @@
           formControlName="role"
           [class.error]="userForm.get('role')?.invalid && userForm.get('role')?.touched">
           <option value="">Select Role</option>
-          <option value="ADMIN">Admin</option>
-          <option value="USER">User</option>
+          <option value="admin">Admin</option>
+          <option value="user">User</option>
+          <option value="technician">Technician</option>
         </select>
         <div *ngIf="userForm.get('role')?.invalid && userForm.get('role')?.touched" class="error-message">
           Role is required
