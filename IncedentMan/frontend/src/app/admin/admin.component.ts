@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../../../model/user.model';
 
@@ -8,12 +9,25 @@ import { User } from '../../../model/user.model';
   selector: 'app-admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss'],
-  imports: [CommonModule] // Importez CommonModule ici
+  imports: [CommonModule, RouterModule] 
 })
 export class AdminComponent {
-  users: User[] = [];
-
-  constructor(private http: HttpClient, private router: Router) {}
+  
+  users = signal<User[]>([]);
+  searchTerm = signal("");
+  roles = ['admin','user','technician'];
+  filtredUsers = computed(()=> {
+    const term = this.searchTerm().toLowerCase();
+    const allUsers = this.users();
+    if (!term) return allUsers;
+    //check exact role
+    if (this.roles.includes(term)){
+      return allUsers.filter(user => user.role.toLowerCase() === term);
+    }
+    //search username
+    return allUsers.filter(user => user.username.toLowerCase().includes(term) || user.role.toLowerCase().includes(term));
+  });
+  constructor(private http: HttpClient, public router: Router) {}
 
   ngOnInit(): void {
     this.loadUsers();
@@ -21,10 +35,12 @@ export class AdminComponent {
 
   loadUsers(): void {
     this.http.get<User[]>('http://localhost:8080/api/users').subscribe(data => {
-      this.users = data;
+      this.users.set(data);
     });
   }
-
+  updateSearch(event : Event):void {
+    this.searchTerm.set((event.target as HTMLInputElement).value);
+  }
   logout() {
     this.router.navigate(['/login']);
   }
