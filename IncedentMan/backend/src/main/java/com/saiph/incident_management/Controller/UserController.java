@@ -2,6 +2,7 @@ package com.saiph.incident_management.Controller;
 
 import com.saiph.incident_management.model.User;
 import com.saiph.incident_management.model.LoginRequest;
+import com.saiph.incident_management.service.JWTService;
 import com.saiph.incident_management.service.UserService;
 import java.util.List;
 import java.util.Map;
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin  // Add this if you're calling from a different origin
 public class UserController {
     private final UserService userService;
+    private final JWTService jwtService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService , JWTService jwtService) {
         this.userService = userService;
+        this.jwtService = jwtService;
     }
 
     @GetMapping
@@ -31,21 +34,29 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest) {
-        User user = userService.findByUsername(loginRequest.getUsername());
+    public ResponseEntity<?> loginUser (@RequestBody LoginRequest loginRequest) {
         
+        User user = userService.findByUsername(loginRequest.getUsername());
+
+        // verify if user exist
         if (user == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body("User not found");
+                .body("User  not found");
         }
+
         
         if (!user.getPassword().equals(loginRequest.getPassword())) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                 .body("Invalid password");
         }
+
+        
+        String token = jwtService.generateToken(user.getUsername());
+
         
         return ResponseEntity.ok(Map.of(
             "message", "Login successful",
+            "token", token, 
             "role", user.getRole(),
             "username", user.getUsername()
         ));

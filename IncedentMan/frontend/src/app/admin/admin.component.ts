@@ -43,6 +43,7 @@ export class AdminComponent {
   }
   logout() {
     this.router.navigate(['/login']);
+    localStorage.removeItem('jwtToken');
   }
   editUser (user: User): void {
     console.log('AdminComponent - Navigating to edit user with ID:', user.id);
